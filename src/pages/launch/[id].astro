@@ -5,6 +5,8 @@ import { getLaunchByID } from "../../services/spacex"
 import Layout from "../../layouts/Layout.astro";
 import { getLatestLaunches } from "../../services/spacex";
 
+export const prerender = false //desactiva el prerender para hacerse en el server
+
 const {id} = Astro.params
 
 console.log({id})
@@ -14,14 +16,6 @@ if(id) { //solo para el servidor
     launch = await getLaunchByID({id})
 }
 
-export async function getStaticPaths () {
-    
-    const launches = await getLatestLaunches()
-
-    return launches.map(launch => ({
-        params: {id: launch.id}
-    }))
-}
 console.log(launch)
 ---
 
